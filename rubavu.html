@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Mukate Church | ADEPR Mashenyi | Ngororero District</title>
+    <title>Mukate Church | ADEPR GISANGANI | RUBAVU District</title>
     
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -87,6 +87,20 @@
             background: var(--accent);
             color: var(--primary);
         }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
 
         .section-padding {
             padding: 80px 0;
@@ -155,6 +169,7 @@
         .nav-links {
             display: flex;
             gap: 30px;
+            align-items: center;
         }
 
         .nav-links a {
@@ -167,6 +182,19 @@
 
         .nav-links a:hover {
             color: var(--accent);
+        }
+
+        /* Auth Container in Navbar */
+        .auth-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .user-display {
+            color: var(--accent);
+            font-weight: 600;
+            margin-right: 10px;
         }
 
         /* Mobile Menu Toggle */
@@ -582,7 +610,7 @@
             font-size: 0.9rem;
         }
 
-        /* --- MODAL (Custom Alert) --- */
+        /* --- MODALS (General, Login, Register) --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -608,11 +636,72 @@
             background: var(--white);
             padding: 30px;
             border-radius: var(--radius);
-            max-width: 500px;
+            max-width: 450px;
             width: 90%;
             text-align: center;
             transform: translateY(20px);
             transition: transform 0.3s;
+            position: relative;
+        }
+
+        /* Specific styles for Auth Forms */
+        .auth-form {
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.2);
+        }
+
+        .form-switch {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .form-switch a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            color: #94a3b8;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .close-modal:hover {
+            color: var(--text-dark);
         }
 
         .modal-overlay.active .modal-content {
@@ -664,6 +753,10 @@
             .hero h1 { font-size: 2.5rem; }
             .location-card { grid-template-columns: 1fr; }
             .map-wrapper { min-height: 250px; }
+            .auth-container {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -680,6 +773,12 @@
             }
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
+            
+            /* Stack auth buttons in mobile menu if needed, 
+               but for simplicity we keep them outside or stack them */
+            .auth-container {
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
@@ -702,6 +801,11 @@
                 <a href="#performances">Performances</a>
                 <a href="#media">Gallery</a>
                 <a href="#contact">Contact</a>
+                
+                <!-- AUTH CONTAINER (Dynamically updates via JS) -->
+                <div class="auth-container" id="navAuthContainer">
+                    <!-- Default Guest Buttons (Injected by JS if no user logged in) -->
+                </div>
             </div>
         </div>
     </nav>
@@ -710,9 +814,9 @@
     <header id="home" class="hero">
         <div class="hero-content">
             <div class="location-badge">
-                <i class="fas fa-map-marker-alt"></i> Rusumo Cell, Gatumba Sector, Ngororero
+                <i class="fas fa-map-marker-alt"></i> KASENGORE Cell, CYANZARWE Sector, RUBAVU
             </div>
-            <h1>ADEPR Mashenyi</h1>
+            <h1>ADEPR RUBAVU</h1>
             <p>Mukate Church • Welcome to our official digital sanctuary. Worship, Grow, and Serve with us.</p>
             <button class="btn btn-primary pulse-btn" onclick="openLiveStream()">
                 <i class="fas fa-broadcast-tower"></i> Join Live Service
@@ -725,7 +829,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Find Us</h2>
-                <p>We are located in the heart of Ngororero District</p>
+                <p>We are located in the heart of RUBAVU District</p>
             </div>
             
             <div class="location-card">
@@ -737,8 +841,8 @@
                         <div class="info-icon"><i class="fas fa-map-pin"></i></div>
                         <div>
                             <strong>Address</strong><br>
-                            Rusumo Cell, Gatumba Sector<br>
-                            Ngororero District, Rwanda
+                            KASENGORE Cell, CYANZARWE Sector<br>
+                            RUBAVU District, Rwanda
                         </div>
                     </div>
 
@@ -746,7 +850,7 @@
                         <div class="info-icon"><i class="fas fa-landmark"></i></div>
                         <div>
                             <strong>Landmark</strong><br>
-                            Near ADEPR Mashenyi Church
+                            Near ADEPR GISANGANI Church
                         </div>
                     </div>
 
@@ -808,7 +912,8 @@
                 <p>Browse photos, audio, and videos from our services</p>
             </div>
 
-            <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+            <!-- Upload Zone with Auth Check -->
+            <div class="upload-zone" id="uploadZone" onclick="handleUploadClick()">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <h3>Upload Church Media</h3>
                 <p>Click to share photos or videos from recent events</p>
@@ -839,8 +944,8 @@
                 <div style="background: white; padding: 30px; border-radius: 16px; text-align: center; min-width: 280px; box-shadow: var(--shadow);">
                     <i class="fas fa-phone-alt" style="font-size: 2rem; color: var(--accent); margin-bottom: 15px;"></i>
                     <h4>Phone</h4>
-                    <p>+250 788 123 456</p>
-                    <p>+250 728 987 654</p>
+                    <p>+250 795 213 157</p>
+                    <p>+250 792 927 941</p>
                 </div>
                 <div style="background: white; padding: 30px; border-radius: 16px; text-align: center; min-width: 280px; box-shadow: var(--shadow);">
                     <i class="fas fa-envelope" style="font-size: 2rem; color: var(--accent); margin-bottom: 15px;"></i>
@@ -858,7 +963,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="logo" style="margin-bottom: 15px;">Mukate<span>Church</span></div>
-                    <p>Serving the community of Rusumo Cell, Gatumba Sector, and Ngororero District.</p>
+                    <p>Serving the community of KASENGORE Cell, CYANZARWE Sector, and RUBAVU District.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
@@ -880,12 +985,70 @@
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2025 Mukate Church (ADEPR Mashenyi). All rights reserved.
+                &copy; 2025 Mukate Church (ADEPR GISANGANI). All rights reserved.
             </div>
         </div>
     </footer>
 
-    <!-- CUSTOM MODAL -->
+    <!-- === AUTH MODALS === -->
+
+    <!-- LOGIN MODAL -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModals()">&times;</button>
+            <div class="modal-icon"><i class="fas fa-user-circle"></i></div>
+            <h3 class="modal-title">Welcome Back</h3>
+            <p class="modal-body">Please login to access member features.</p>
+            
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Login</button>
+            </form>
+            
+            <div class="form-switch">
+                Don't have an account? <a onclick="switchAuthModal('register')">Create one</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER MODAL -->
+    <div class="modal-overlay" id="registerModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModals()">&times;</button>
+            <div class="modal-icon"><i class="fas fa-user-plus"></i></div>
+            <h3 class="modal-title">Create Account</h3>
+            <p class="modal-body">Join our digital community today.</p>
+            
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="regName" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Register</button>
+            </form>
+            
+            <div class="form-switch">
+                Already have an account? <a onclick="switchAuthModal('login')">Login here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM INFO MODAL -->
     <div class="modal-overlay" id="customModal">
         <div class="modal-content">
             <div class="modal-icon" id="modalIcon"><i class="fas fa-info-circle"></i></div>
@@ -902,6 +1065,150 @@
     </div>
 
     <script>
+        // --- AUTHENTICATION LOGIC ---
+
+        // Keys for LocalStorage
+        const STORAGE_USERS_KEY = 'mukate_users';
+        const STORAGE_CURRENT_USER_KEY = 'mukate_current_user';
+
+        // Initialize Users Array if empty
+        function getUsers() {
+            const users = localStorage.getItem(STORAGE_USERS_KEY);
+            return users ? JSON.parse(users) : [];
+        }
+
+        // Register User
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            const users = getUsers();
+
+            // Check if email already exists
+            const existingUser = users.find(u => u.email === email);
+            if (existingUser) {
+                showToast("Email already registered. Please Login.");
+                switchAuthModal('login');
+                return;
+            }
+
+            // Create new user object
+            const newUser = { name, email, password };
+            users.push(newUser);
+            
+            // Save to local storage
+            localStorage.setItem(STORAGE_USERS_KEY, JSON.stringify(users));
+
+            showToast("Registration Successful! Please Login.");
+            
+            // Reset form
+            this.reset();
+            
+            // Switch to login modal
+            closeModals();
+            setTimeout(() => openLoginModal(), 500);
+        });
+
+        // Login User
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const users = getUsers();
+            
+            // Find user
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // Set current session
+                localStorage.setItem(STORAGE_CURRENT_USER_KEY, JSON.stringify(user));
+                
+                showToast(`Welcome back, ${user.name}!`);
+                this.reset();
+                closeModals();
+                updateAuthUI(); // Update Navbar
+            } else {
+                showToast("Invalid email or password.");
+            }
+        });
+
+        // Logout User
+        function logout() {
+            localStorage.removeItem(STORAGE_CURRENT_USER_KEY);
+            showToast("Logged out successfully.");
+            updateAuthUI(); // Update Navbar
+        }
+
+        // Check session on load
+        function checkSession() {
+            updateAuthUI();
+        }
+
+        // Update Navbar based on Auth State
+        function updateAuthUI() {
+            const container = document.getElementById('navAuthContainer');
+            const currentUser = JSON.parse(localStorage.getItem(STORAGE_CURRENT_USER_KEY));
+
+            if (currentUser) {
+                // User is Logged In
+                container.innerHTML = `
+                    <span class="user-display">Hello, ${currentUser.name.split(' ')[0]}</span>
+                    <button class="btn btn-danger btn-sm" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                `;
+            } else {
+                // User is Guest
+                container.innerHTML = `
+                    <button class="btn btn-outline btn-sm" onclick="openLoginModal()">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="openRegisterModal()">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                `;
+            }
+        }
+
+        // Modal Control Functions
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function openRegisterModal() {
+            document.getElementById('registerModal').classList.add('active');
+        }
+
+        function closeModals() {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+        }
+
+        function switchAuthModal(type) {
+            closeModals();
+            setTimeout(() => {
+                if(type === 'login') openLoginModal();
+                if(type === 'register') openRegisterModal();
+            }, 300);
+        }
+
+
+        // --- UPLOAD AUTH CHECK ---
+        function handleUploadClick() {
+            const user = JSON.parse(localStorage.getItem(STORAGE_CURRENT_USER_KEY));
+            if (!user) {
+                showToast("Please Login to upload media.");
+                setTimeout(() => openLoginModal(), 500);
+                return;
+            }
+            document.getElementById('fileInput').click();
+        }
+
+
         // --- DATA OBJECTS ---
         const choirsData = [
             { id: 1, name: "Abizerayesu", meaning: "Those who believe in Jesus", members: "120+", icon: "fa-cross", lead: "Pasteur Emmanuel" },
@@ -937,6 +1244,7 @@
 
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
+            checkSession(); // Check auth state on load
             renderChoirs();
             renderPerformances();
             filterGallery('photos', document.querySelector('.tab-btn'));
@@ -1043,7 +1351,7 @@
             showModal("Live Service", msg, "fa-broadcast-tower");
         }
 
-        // --- MODAL SYSTEM ---
+        // --- GENERAL MODAL SYSTEM ---
         const modal = document.getElementById('customModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
@@ -1063,6 +1371,13 @@
         // Close modal if clicking outside content
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
+        });
+        
+        // Close Auth modals if clicking outside
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeModals();
+            });
         });
 
         // --- TOAST SYSTEM ---
